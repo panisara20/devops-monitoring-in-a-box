@@ -121,6 +121,28 @@ services:
     networks:
       - monitoring
 
+  # DevOps Monitor UI - Modern web dashboard
+  devops-monitor-ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: devops-monitor-ui
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:4000
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+      - grafana
+      - loki
+
 volumes:
   prometheus_data:
   grafana_data:

@@ -1,0 +1,259 @@
+import React from 'react';
+import { 
+  Cpu, 
+  HardDrive, 
+  Network, 
+  Activity, 
+  TrendingUp,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  Settings
+} from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+
+const Dashboard = () => {
+  // Mock data - in real app, this would come from your monitoring APIs
+  const systemMetrics = {
+    cpu: 45,
+    memory: 67,
+    disk: 23,
+    network: 12
+  };
+
+  const chartData = [
+    { time: '00:00', cpu: 30, memory: 50, disk: 20 },
+    { time: '04:00', cpu: 45, memory: 60, disk: 22 },
+    { time: '08:00', cpu: 65, memory: 70, disk: 25 },
+    { time: '12:00', cpu: 80, memory: 75, disk: 28 },
+    { time: '16:00', cpu: 70, memory: 72, disk: 26 },
+    { time: '20:00', cpu: 55, memory: 65, disk: 24 },
+    { time: '24:00', cpu: 40, memory: 58, disk: 21 },
+  ];
+
+  const recentAlerts = [
+    { id: 1, severity: 'warning', message: 'High CPU usage detected', time: '2 minutes ago' },
+    { id: 2, severity: 'info', message: 'System backup completed', time: '1 hour ago' },
+    { id: 3, severity: 'error', message: 'Disk space low', time: '3 hours ago' },
+  ];
+
+  const getSeverityColor = (severity) => {
+    switch (severity) {
+      case 'error':
+        return 'text-red-600 bg-red-100';
+      case 'warning':
+        return 'text-yellow-600 bg-yellow-100';
+      case 'info':
+        return 'text-blue-600 bg-blue-100';
+      default:
+        return 'text-gray-600 bg-gray-100';
+    }
+  };
+
+  const getSeverityIcon = (severity) => {
+    switch (severity) {
+      case 'error':
+        return <AlertTriangle className="h-4 w-4" />;
+      case 'warning':
+        return <AlertTriangle className="h-4 w-4" />;
+      case 'info':
+        return <CheckCircle className="h-4 w-4" />;
+      default:
+        return <Clock className="h-4 w-4" />;
+    }
+  };
+
+  return (
+    <div className="p-6">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p className="text-gray-600 mt-2">Monitor your system health and performance</p>
+      </div>
+
+      {/* Metrics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center">
+            <div className="p-3 bg-blue-100 rounded-lg">
+              <Cpu className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">CPU Usage</p>
+              <p className="text-2xl font-bold text-gray-900">{systemMetrics.cpu}%</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="flex items-center text-sm text-gray-500">
+              <TrendingUp className="h-4 w-4 mr-1" />
+              <span>+5.2% from last hour</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center">
+            <div className="p-3 bg-green-100 rounded-lg">
+              <HardDrive className="h-6 w-6 text-green-600" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Memory Usage</p>
+              <p className="text-2xl font-bold text-gray-900">{systemMetrics.memory}%</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="flex items-center text-sm text-gray-500">
+              <TrendingUp className="h-4 w-4 mr-1" />
+              <span>+2.1% from last hour</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center">
+            <div className="p-3 bg-yellow-100 rounded-lg">
+              <HardDrive className="h-6 w-6 text-yellow-600" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Disk Usage</p>
+              <p className="text-2xl font-bold text-gray-900">{systemMetrics.disk}%</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="flex items-center text-sm text-gray-500">
+              <TrendingUp className="h-4 w-4 mr-1" />
+              <span>+0.5% from last hour</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center">
+            <div className="p-3 bg-purple-100 rounded-lg">
+              <Network className="h-6 w-6 text-purple-600" />
+            </div>
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Network I/O</p>
+              <p className="text-2xl font-bold text-gray-900">{systemMetrics.network} MB/s</p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="flex items-center text-sm text-gray-500">
+              <TrendingUp className="h-4 w-4 mr-1" />
+              <span>+12.3% from last hour</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* CPU & Memory Chart */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">System Performance</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="cpu" stroke="#3b82f6" strokeWidth={2} name="CPU %" />
+              <Line type="monotone" dataKey="memory" stroke="#10b981" strokeWidth={2} name="Memory %" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Disk Usage Chart */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Disk Usage Trend</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+              <Area type="monotone" dataKey="disk" stroke="#f59e0b" fill="#fef3c7" name="Disk %" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Recent Activity & Quick Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Recent Alerts */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Alerts</h3>
+          <div className="space-y-3">
+            {recentAlerts.map((alert) => (
+              <div key={alert.id} className="flex items-start space-x-3">
+                <div className={`p-2 rounded-full ${getSeverityColor(alert.severity)}`}>
+                  {getSeverityIcon(alert.severity)}
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-gray-900">{alert.message}</p>
+                  <p className="text-xs text-gray-500">{alert.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <div className="space-y-3">
+            <button className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700">
+              <Activity className="h-4 w-4 mr-2" />
+              View All Metrics
+            </button>
+            <button className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+              <AlertTriangle className="h-4 w-4 mr-2" />
+              Manage Alerts
+            </button>
+            <button className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+              <Settings className="h-4 w-4 mr-2" />
+              System Settings
+            </button>
+          </div>
+        </div>
+
+        {/* System Status */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">System Status</h3>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">Prometheus</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-green-600">Healthy</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">Grafana</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-green-600">Healthy</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">Loki</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-green-600">Healthy</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">Node Exporter</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-green-600">Healthy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;

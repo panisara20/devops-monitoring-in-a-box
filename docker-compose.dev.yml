@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # DevOps Monitor UI - Development mode with hot reloading
+  devops-monitor-ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.dev
+    container_name: devops-monitor-ui-dev
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:4000
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+      - grafana
+      - loki
+
+networks:
+  monitoring:
+    external: true

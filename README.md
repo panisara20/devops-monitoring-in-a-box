@@ -10,8 +10,11 @@ With just **one command**, you get:
 * **Loki** → Centralized log aggregation
 * **Alertmanager** → Alerts via Slack/Email/Webhooks
 * **Node Exporter** → System metrics (CPU, RAM, Disk, etc.)
+* **🎨 Modern React UI** → **Unified dashboard experience** (What makes us unique!)
 
 👉 Perfect for learning, testing, or quick local monitoring setup.
+
+**🚀 What Sets Us Apart:** While most monitoring projects stop at Prometheus + Grafana, we provide a **modern, responsive web interface** that unifies all your monitoring tools into one beautiful dashboard experience!
 
 ## ⚡ Quick Start
 
@@ -23,6 +26,7 @@ docker-compose up -d
 
 Then open:
 
+* 🎨 **DevOps Monitor UI** → [http://localhost:4000](http://localhost:4000) - Modern unified dashboard
 * Grafana → [http://localhost:3000](http://localhost:3000) (user: `admin`, pass: `admin`)
 * Prometheus → [http://localhost:9090](http://localhost:9090)
 * Loki → [http://localhost:3100](http://localhost:3100)
@@ -34,20 +38,31 @@ Then open:
 devops-monitoring-in-a-box/
 ├── README.md                # Repo overview + usage
 ├── docker-compose.yml       # Runs all monitoring services
+├── docker-compose.dev.yml   # Development setup with UI hot reloading
 │
 ├── prometheus/
-│   └── prometheus.yml       # Scrape configs
+│   ├── prometheus.yml       # Scrape configs
+│   └── alert_rules.yml      # Pre-configured alert rules
 │
 ├── grafana/
 │   ├── dashboards/          # Pre-built dashboards (JSON files)
+│   │   ├── dashboard.yml    # Dashboard provisioning
 │   │   └── node-exporter.json
 │   └── datasources/         # Pre-configured Prometheus datasource
 │
 ├── loki/
-│   └── config.yml           # Loki log aggregation config
+│   ├── config.yml           # Loki log aggregation config
+│   └── promtail-config.yml  # Log collection configuration
 │
 ├── alertmanager/
 │   └── config.yml           # Alert rules + Slack/email webhook config
+│
+├── ui/                      # 🆕 Modern React Dashboard
+│   ├── src/                 # React application source
+│   ├── public/              # Static assets
+│   ├── Dockerfile           # Production build
+│   ├── Dockerfile.dev       # Development build
+│   └── package.json         # Dependencies
 │
 └── exporters/
     └── node-exporter/       # System metrics exporter
@@ -59,6 +74,7 @@ devops-monitoring-in-a-box/
 * 🖼️ **Dashboards**: Pre-configured Grafana dashboards
 * 📜 **Logs**: Loki + Promtail for log aggregation
 * 🚨 **Alerts**: Sample Alertmanager config (Slack/Email integration ready)
+* 🎨 **Modern UI**: React-based dashboard for unified monitoring experience
 * ⚡ **One command setup**: Just run `docker-compose up -d`
 
 ## 🔧 Next Steps (for contributors)
@@ -70,6 +86,30 @@ devops-monitoring-in-a-box/
 ## 🚀 Getting Started
 
 📖 **For detailed setup instructions, see [SETUP.md](SETUP.md)**
+
+### 🎯 Quick Commands
+
+We've created convenient scripts to manage your entire monitoring stack:
+
+```bash
+# Start everything (monitoring stack + UI)
+./devops-monitor.sh start
+
+# Start just the UI development server
+./devops-monitor.sh ui
+
+# Check project status
+./devops-monitor.sh status
+
+# View service logs
+./devops-monitor.sh logs
+
+# Stop everything
+./devops-monitor.sh stop
+
+# Get help
+./devops-monitor.sh help
+```
 
 ### Prerequisites
 
@@ -89,6 +129,10 @@ devops-monitoring-in-a-box/
 2. **Start the monitoring stack:**
 
    ```bash
+   # Option 1: Using the management script (Recommended)
+   ./devops-monitor.sh start
+   
+   # Option 2: Using Docker Compose directly
    docker-compose up -d
    ```
 
