@@ -181,4 +181,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Happy Monitoring! 🚀**
+## 🛠️ Author & Community
+
+Built with passion and purpose by [**Harshhaa**](https://github.com/NotHarshhaa).  
+Your ideas, feedback, and contributions are what make this project better.
+
+Let’s shape the future of DevOps monitoring together! 🚀
+
+**Connect & Collaborate:**  
+
+* **GitHub:** [@NotHarshhaa](https://github.com/NotHarshhaa)  
+* **Blog:** [ProDevOpsGuy](https://blog.prodevopsguy.xyz)  
+* **Telegram Community:** [Join Here](https://t.me/prodevopsguy)  
+* **LinkedIn:** [Harshhaa Vardhan Reddy](https://www.linkedin.com/in/harshhaa-vardhan-reddy/)  
+
+---
+
+## ⭐ How You Can Support
+
+If you found this project useful:  
+
+* ⭐ **Star** the repository to show your support  
+* 📢 **Share** it with your friends and colleagues  
+* 📝 **Open issues** or **submit pull requests** to help improve it
+
+---
+
+### 📢 Stay Connected
+
+[![Follow Me](https://imgur.com/2j7GSPs.png)](https://github.com/NotHarshhaa)
+
+Join the community, share your experience, and help us grow!
