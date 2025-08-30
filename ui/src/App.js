@@ -1,15 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from './contexts/ThemeContext';
-import Sidebar from './components/Sidebar';
-import Dashboard from './pages/Dashboard';
-import Services from './pages/Services';
-import Metrics from './pages/Metrics';
-import Logs from './pages/Logs';
-import Alerts from './pages/Alerts';
-import Settings from './pages/Settings';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
+import Services from "./pages/Services";
+import Metrics from "./pages/Metrics";
+import Logs from "./pages/Logs";
+import Alerts from "./pages/Alerts";
+import Settings from "./pages/Settings";
+import "./App.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
