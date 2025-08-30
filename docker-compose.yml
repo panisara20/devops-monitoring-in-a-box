@@ -121,20 +121,21 @@ services:
     networks:
       - monitoring
 
-  # DevOps Monitor UI - Modern web dashboard
+  # DevOps Monitor UI - Modern Next.js web dashboard
   devops-monitor-ui:
     build:
-      context: ./ui
+      context: ./ui-next
       dockerfile: Dockerfile
     container_name: devops-monitor-ui
     ports:
       - "4000:3000"
     volumes:
-      - ./ui:/app
+      - ./ui-next:/app
       - /app/node_modules
+      - /app/.next
     environment:
-      - REACT_APP_API_URL=http://localhost:4000
-      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=production
+      - PORT=3000
     restart: unless-stopped
     networks:
       - monitoring

@@ -4,7 +4,7 @@
 # This script provides easy access to all project functions
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-UI_DIR="$SCRIPT_DIR/ui"
+UI_DIR="$SCRIPT_DIR/ui-next"
 
 # Colors for output
 RED='\033[0;31m'
@@ -146,11 +146,11 @@ start_ui() {
     fi
     
     print_status "Starting UI development server..."
-    print_info "🌐 UI will be available at: http://localhost:3000"
+    print_info "🌐 UI will be available at: http://localhost:3001"
     print_info "📱 Auto-reload enabled for development"
     echo ""
     
-    npm start
+    npm run dev -- -p 3001
 }
 
 # Function to build UI for production
@@ -175,7 +175,7 @@ build_ui() {
     
     if [ $? -eq 0 ]; then
         print_status "UI built successfully!"
-        print_info "Production files are in: $UI_DIR/build/"
+        print_info "Production files are in: $UI_DIR/.next/"
     else
         print_error "Failed to build UI"
         return 1
@@ -220,8 +220,8 @@ show_help() {
     echo "  start     - Start the complete monitoring stack with Docker"
     echo "  stop      - Stop the monitoring stack"
     echo "  restart   - Restart the monitoring stack"
-    echo "  ui        - Start the React UI development server"
-    echo "  build-ui  - Build the UI for production deployment"
+    echo "  ui        - Start the Next.js UI development server"
+    echo "  build-ui  - Build the Next.js UI for production deployment"
     echo "  status    - Show current project and service status"
     echo "  logs      - Show logs from all services"
     echo "  clean     - Clean up Docker containers and volumes"

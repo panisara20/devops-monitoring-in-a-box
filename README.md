@@ -57,7 +57,7 @@ devops-monitoring-in-a-box/
 ├── alertmanager/
 │   └── config.yml           # Alert rules + Slack/email webhook config
 │
-├── ui/                      # 🆕 Modern React Dashboard
+├── ui-next/                 # 🆕 Modern Next.js Dashboard
 │   ├── src/                 # React application source
 │   ├── public/              # Static assets
 │   ├── Dockerfile           # Production build

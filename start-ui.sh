@@ -1,47 +1,46 @@
 #!/bin/bash
 
-echo "🎨 Starting DevOps Monitor UI Development Server..."
-echo "=================================================="
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
-# Get the directory where this script is located
+# Get the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-UI_DIR="$SCRIPT_DIR/ui"
+UI_DIR="$SCRIPT_DIR/ui-next"
+
+echo -e "${BLUE}╔══════════════════════════════════════════════════════════╗${NC}"
+echo -e "${BLUE}║                                                          ║${NC}"
+echo -e "${BLUE}║              Starting DevOps Monitor UI                 ║${NC}"
+echo -e "${BLUE}║                                                          ║${NC}"
+echo -e "${BLUE}╚══════════════════════════════════════════════════════════╝${NC}"
+echo ""
 
 # Check if UI directory exists
 if [ ! -d "$UI_DIR" ]; then
-    echo "❌ UI directory not found at: $UI_DIR"
+    echo -e "${RED}[ERROR] UI directory not found at: $UI_DIR${NC}"
     exit 1
 fi
 
-# Check if Node.js is installed
-if ! command -v node &> /dev/null; then
-    echo "❌ Node.js is not installed. Please install Node.js first."
-    echo "   Visit: https://nodejs.org/"
+# Change to UI directory
+cd "$UI_DIR" || {
+    echo -e "${RED}[ERROR] Failed to change to UI directory.${NC}"
     exit 1
-fi
+}
 
-# Check if npm is installed
-if ! command -v npm &> /dev/null; then
-    echo "❌ npm is not installed. Please install npm first."
-    exit 1
-fi
-
-# Navigate to UI directory
-cd "$UI_DIR"
-
-# Install dependencies if node_modules doesn't exist
+# Install dependencies if needed
 if [ ! -d "node_modules" ]; then
-    echo "📦 Installing UI dependencies..."
+    echo -e "${GREEN}[INFO] Installing dependencies...${NC}"
     npm install
 fi
 
-echo "🚀 Starting UI development server..."
-echo "🌐 UI will be available at: http://localhost:3000"
-echo "📱 The UI will automatically reload when you make changes"
-echo "📁 Working directory: $UI_DIR"
-echo ""
-echo "Press Ctrl+C to stop the server"
-echo ""
+# Start the Next.js app
+echo -e "${GREEN}[INFO] Starting Next.js app on port 3001...${NC}"
+npm run dev -- -p 3001
 
-# Start the development server
-npm start
+# Check if start was successful
+if [ $? -ne 0 ]; then
+    echo -e "${RED}[ERROR] Failed to start the Next.js app.${NC}"
+    exit 1
+fi 
