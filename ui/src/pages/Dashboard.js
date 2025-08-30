@@ -8,7 +8,11 @@ import {
   AlertTriangle,
   CheckCircle,
   Clock,
-  Settings
+  Settings,
+  Database,
+  BarChart3,
+  FileText,
+  Bell
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
@@ -222,28 +226,60 @@ const Dashboard = () => {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">System Status</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Prometheus</span>
+              <a 
+                href="http://localhost:9090" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline flex items-center"
+              >
+                <Database className="h-4 w-4 mr-2" />
+                Prometheus
+              </a>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span className="text-sm text-green-600">Healthy</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Grafana</span>
+              <a 
+                href="http://localhost:3000" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline flex items-center"
+              >
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Grafana
+              </a>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span className="text-sm text-green-600">Healthy</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Loki</span>
+              <a 
+                href="http://localhost:3100" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline flex items-center"
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Loki
+              </a>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span className="text-sm text-green-600">Healthy</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Node Exporter</span>
+              <a 
+                href="http://localhost:9093" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline flex items-center"
+              >
+                <Bell className="h-4 w-4 mr-2" />
+                Alertmanager
+              </a>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span className="text-sm text-green-600">Healthy</span>
